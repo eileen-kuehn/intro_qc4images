@@ -1,5 +1,8 @@
 images/*
+!images/Woman.jpg
+!images/Puffin.jpg
 results/*
+
 
 
 # Byte-compiled / optimized / DLL files
