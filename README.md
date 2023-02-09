@@ -7,3 +7,4 @@ Ways to change the output:
 - change the ciruit
 - change numper of repititions of the circuit
 - change number of qubits (up to 8)
+- change number of shots
