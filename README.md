@@ -1,6 +1,6 @@
 # girlsday23
 
-There are two example images in the `images` folder. Feel free to add more to experiment (these will be ignored by git). 
+There are three example images in the `images` folder. Feel free to add more to experiment (these will be ignored by git). 
 
 Ways to change the output:
 - change (fake) backend
