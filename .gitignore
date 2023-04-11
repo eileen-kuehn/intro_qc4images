@@ -2,7 +2,7 @@ images/*
 !images/Woman.jpg
 !images/Puffin.jpg
 !images/Cat.jpg
-results/*
+results/*.jpg
 
 
 
