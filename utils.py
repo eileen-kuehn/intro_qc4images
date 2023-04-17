@@ -1,4 +1,5 @@
 import matplotlib.image as mpimg
+from matplotlib.pyplot import imshow
 import numpy as np
 from copy import copy
 
@@ -32,3 +33,7 @@ def reduce_rgb_values(image, r_value):
 def filling_zeros(binary, n):
     difference = (n - len(binary))*"0"
     return difference + binary
+
+
+def show_bw_image(image):
+    imshow(image, cmap='gray', vmin=0, vmax=255)
