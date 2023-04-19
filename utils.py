@@ -8,7 +8,7 @@ def load_image(path):
     if np.max(org_image) <= 1:
         org_image *= 255
         org_image = org_image.astype(np.uint8)
-    return org_image
+    return copy(org_image)
 
 
 def reduce_rgb_values(image, r_value):
