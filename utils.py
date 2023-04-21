@@ -1,6 +1,7 @@
 import matplotlib.image as mpimg
 from matplotlib.pyplot import imshow
 from qiskit import QuantumCircuit, transpile
+from qiskit_aer import AerSimulator
 import numpy as np
 from copy import copy
 
@@ -39,9 +40,22 @@ def filling_zeros(binary, n):
     difference = (n - len(binary))*"0"
     return difference + binary
 
+def get_result(circuit, backend=None, shots=1024, prob=True):
+    backend = AerSimulator()
+    job_sim = backend.run(transpile(circuit, backend), shots=shots)
+    result_sim = job_sim.result().get_counts()
 
-def create_mapping(qubits, backend, noisy_circuit, shots):
+    if prob:
+        return {k:int(100*v/shots) for k, v in result_sim.items()}
+    else:
+        return result_sim
+
+def create_mapping(noisy_circuit, backend=None, shots=1024):
     mapping = {}
+    qubits = len(noisy_circuit.qubits)
+
+    if backend is None:
+        backend = AerSimulator()
 
     for i in range(2**qubits):
         encoding_circuit = QuantumCircuit(qubits)
@@ -53,14 +67,14 @@ def create_mapping(qubits, backend, noisy_circuit, shots):
 
         full_circuit = encoding_circuit.compose(noisy_circuit)
         full_circuit.measure_all()
-
-        job_sim = backend.run(transpile(full_circuit, backend), shots=shots)
-        result_sim = job_sim.result()
-        counts = result_sim.get_counts(full_circuit)
+        
+        counts = get_result(full_circuit, backend, shots, prob=False)
         mapping[filling_zeros(binary_number, qubits)] = max(counts, key=counts.get)
 
     print("Mapping:", mapping)
     return mapping
+
+
 
 
 def convert_image(qubits, image, mapping, pixels_to_transform):
