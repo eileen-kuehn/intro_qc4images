@@ -102,7 +102,7 @@ def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
     print("Mapping:", rgb_mapping)
     return rgb_mapping
 
-def convert_image(qubits, image, mapping, pixels_to_transform, qchannels=1):
+def convert_image(qubits, image, mapping, pixels_to_transform):
     image = copy(image)
     channels = image.shape[2]
     
@@ -115,10 +115,35 @@ def convert_image(qubits, image, mapping, pixels_to_transform, qchannels=1):
             b_value = bin(value)[2:]
             b_value2 = filling_zeros(b_value, 8)
 
-            cut_b_value = b_value2[:qubits*qchannels]
-            new_b_value = mapping[cut_b_value] + (8-(qubits*qchannels))*"0"
+            cut_b_value = b_value2[:qubits]
+
+            new_b_value = mapping[cut_b_value] + (8-(qubits))*"0"
 
             image[row, column, channel] = int(new_b_value, 2)
+                
+    return image
+
+def convert_rgb_image(qubits, image, mapping, pixels_to_transform):
+    image = copy(image)
+    channels = image.shape[2]
+    
+    for pixel in pixels_to_transform:
+        row = pixel[0]
+        column = pixel[1]
+        
+        cut_b_value = ""
+        for channel in range(channels):        
+            value = image[row, column, channel]
+            b_value = bin(value)[2:]
+            b_value2 = filling_zeros(b_value, 8)
+
+            cut_b_value += b_value2[:qubits]
+
+        new_b_value = mapping[cut_b_value]
+
+        for channel in range(channels):        
+
+            image[row, column, channel] = int(new_b_value[channel] + (8-(qubits))*"0", 2)
                 
     return image
 
