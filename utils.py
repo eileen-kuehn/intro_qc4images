@@ -74,10 +74,35 @@ def create_mapping(noisy_circuit, backend=None, shots=1024):
     print("Mapping:", mapping)
     return mapping
 
+def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
+    qubits = len(noisy_circuit.qubits)
 
+    if backend is None:
+        backend = AerSimulator()
 
+    rgb_mapping = {}
 
-def convert_image(qubits, image, mapping, pixels_to_transform):
+    for i in range(2**qubits):
+        encoding_circuit = QuantumCircuit(qubits)
+        for c in range(channels):
+            
+            binary_number = bin(i)[2:]
+            for index, q in enumerate(binary_number[::-1]): #LSB = Qubit 0
+                if q == "1":
+                    encoding_circuit.x(index)
+            encoding_circuit.barrier()
+
+        full_circuit = encoding_circuit.compose(noisy_circuit)
+        full_circuit.measure_all()
+        
+        counts = get_result(full_circuit, backend, shots, prob=False)
+
+        rgb_mapping[filling_zeros(binary_number, qubits)] = max(counts, key=counts.get)
+
+    print("Mapping:", rgb_mapping)
+    return rgb_mapping
+
+def convert_image(qubits, image, mapping, pixels_to_transform, qchannels=1):
     image = copy(image)
     channels = image.shape[2]
     
@@ -90,8 +115,8 @@ def convert_image(qubits, image, mapping, pixels_to_transform):
             b_value = bin(value)[2:]
             b_value2 = filling_zeros(b_value, 8)
 
-            cut_b_value = b_value2[:qubits]
-            new_b_value = mapping[cut_b_value] + (8-qubits)*"0"
+            cut_b_value = b_value2[:qubits*qchannels]
+            new_b_value = mapping[cut_b_value] + (8-(qubits*qchannels))*"0"
 
             image[row, column, channel] = int(new_b_value, 2)
                 
