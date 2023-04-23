@@ -143,7 +143,7 @@ def convert_rgb_image(qubits, image, mapping, pixels_to_transform):
 
         for channel in range(channels):        
 
-            image[row, column, channel] = int(new_b_value[channel] + (8-(qubits))*"0", 2)
+            image[row, column, channel] = int(new_b_value[channel*qubits:(channel+1)*qubits] + (8-(qubits))*"0", 2)
                 
     return image
 
