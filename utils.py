@@ -41,7 +41,9 @@ def filling_zeros(binary, n):
     return difference + binary
 
 def get_result(circuit, backend=None, shots=1024, prob=True):
-    backend = AerSimulator()
+    if backend is None:
+        backend = AerSimulator()
+
     job_sim = backend.run(transpile(circuit, backend), shots=shots)
     result_sim = job_sim.result().get_counts()
 
@@ -53,9 +55,6 @@ def get_result(circuit, backend=None, shots=1024, prob=True):
 def create_mapping(noisy_circuit, backend=None, shots=1024):
     mapping = {}
     qubits = len(noisy_circuit.qubits)
-
-    if backend is None:
-        backend = AerSimulator()
 
     for i in range(2**qubits):
         encoding_circuit = QuantumCircuit(qubits)
@@ -76,9 +75,6 @@ def create_mapping(noisy_circuit, backend=None, shots=1024):
 
 def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
     qubits = len(noisy_circuit.qubits)
-
-    if backend is None:
-        backend = AerSimulator()
 
     rgb_mapping = {}
 
