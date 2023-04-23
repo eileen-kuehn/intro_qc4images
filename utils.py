@@ -58,7 +58,7 @@ def get_result(circuit, backend=None, shots=1024, prob=True):
             pass
         backend = provider.get_backend(backend)
 
-    job_sim = backend.run(transpile(circuit, backend), shots=shots)
+    job_sim = backend.run(transpile(circuit, backend, optimization_level=0), shots=shots)
     result_sim = job_sim.result().get_counts()
 
     if prob:
