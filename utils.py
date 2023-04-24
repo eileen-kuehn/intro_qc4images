@@ -90,7 +90,6 @@ def create_mapping(noisy_circuit, backend=None, shots=1024):
         counts = get_result(full_circuit, backend, shots, prob=False)
         mapping[filling_zeros(binary_number, qubits)] = max(counts, key=counts.get)
 
-    print("Mapping:", mapping)
     return mapping
 
 def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
@@ -115,7 +114,6 @@ def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
 
         rgb_mapping[filling_zeros(binary_number, qubits)] = max(counts, key=counts.get)
 
-    print("Mapping:", rgb_mapping)
     return rgb_mapping
 
 def convert_image(qubits, image, mapping, pixels_to_transform):
