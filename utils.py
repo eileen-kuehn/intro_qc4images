@@ -39,7 +39,7 @@ def reduce_rgb_values(image, qubits):
                     value -= r_value
                 image[h, w, c] = value
                 
-    return image, max_value
+    return image
 
 def print_mapping(mapping):
     for A, B in mapping.items():
