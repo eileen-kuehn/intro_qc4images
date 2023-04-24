@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-04-23T15:46:32.811Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="4nRhHxkkmfemvqRiJo_J" version="21.1.2" type="device">
+<mxfile host="Electron" modified="2023-04-24T15:20:21.987Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="sfL0YGUepFqS5a4bK9pm" version="21.1.2" type="device" pages="2">
   <diagram name="Page-1" id="k6WbNkQRSh4aJVZvBmDy">
-    <mxGraphModel dx="785" dy="753" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1300" pageHeight="2800" background="#ffffff" math="1" shadow="0">
+    <mxGraphModel dx="263" dy="486" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1300" pageHeight="2800" background="#ffffff" math="1" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -57,6 +57,74 @@
         </mxCell>
         <mxCell id="gdzNvqZXnTb96t6Ee-S4-20" value="\(\vert -\rangle\)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="961" y="260" width="50" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="sgKm-B5WKVNnTze-RPqc" name="Page-2">
+    <mxGraphModel dx="3067" dy="3237" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1300" pageHeight="2800" background="#ffffff" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="h-CqxbEKQASS1kPJtUiJ-2" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;Hier kannst du dir die Ressourcen runterladen...&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1212.5" y="206" width="403" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="h-CqxbEKQASS1kPJtUiJ-30" value="Girls Day &#39;23&lt;br style=&quot;font-size: 50px;&quot;&gt;@ KIT / SCC&lt;br style=&quot;font-size: 50px;&quot;&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=50;rotation=-90;fontColor=#000000;fontFamily=Courier New;spacing=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1615.5" y="-123" width="411" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="h-CqxbEKQASS1kPJtUiJ-50" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;... und hier kannst du in den Notebooks weitermachen&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1998" y="208" width="442" height="161" as="geometry" />
+        </mxCell>
+        <mxCell id="h-CqxbEKQASS1kPJtUiJ-55" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/jupyterHub.png;" vertex="1" parent="1">
+          <mxGeometry x="1959" y="-300" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-27" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/bwCloud.png;" vertex="1" parent="1">
+          <mxGeometry x="1153.9966666666664" y="-300.0011111111114" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-28" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;Hier kannst du dir die Ressourcen runterladen...&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1212.5" y="866" width="403" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-29" value="Girls Day &#39;23&lt;br style=&quot;font-size: 50px;&quot;&gt;@ KIT / SCC&lt;br style=&quot;font-size: 50px;&quot;&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=50;rotation=-90;fontColor=#000000;fontFamily=Courier New;spacing=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1615.5" y="537" width="411" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-30" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;... und hier kannst du in den Notebooks weitermachen&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1998" y="868" width="442" height="161" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-31" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/jupyterHub.png;" vertex="1" parent="1">
+          <mxGeometry x="1959" y="360" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-32" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/bwCloud.png;" vertex="1" parent="1">
+          <mxGeometry x="1153.9966666666664" y="359.9988888888886" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-33" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;Hier kannst du dir die Ressourcen runterladen...&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1212.5" y="1526" width="403" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-34" value="Girls Day &#39;23&lt;br style=&quot;font-size: 50px;&quot;&gt;@ KIT / SCC&lt;br style=&quot;font-size: 50px;&quot;&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=50;rotation=-90;fontColor=#000000;fontFamily=Courier New;spacing=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1615.5" y="1197" width="411" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-35" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;... und hier kannst du in den Notebooks weitermachen&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1998" y="1528" width="442" height="161" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-36" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/jupyterHub.png;" vertex="1" parent="1">
+          <mxGeometry x="1959" y="1020" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-37" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/bwCloud.png;" vertex="1" parent="1">
+          <mxGeometry x="1153.9966666666664" y="1019.9988888888886" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-38" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;Hier kannst du dir die Ressourcen runterladen...&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1212.5" y="2184" width="403" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-39" value="Girls Day &#39;23&lt;br style=&quot;font-size: 50px;&quot;&gt;@ KIT / SCC&lt;br style=&quot;font-size: 50px;&quot;&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=50;rotation=-90;fontColor=#000000;fontFamily=Courier New;spacing=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1615.5" y="1855" width="411" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-40" value="&lt;font color=&quot;#000000&quot; style=&quot;font-size: 34px;&quot;&gt;... und hier kannst du in den Notebooks weitermachen&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="1998" y="2186" width="442" height="161" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-41" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/jupyterHub.png;" vertex="1" parent="1">
+          <mxGeometry x="1959" y="1678" width="520" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="Y8vhHfXnqWE4AkLJtR-x-42" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=/home/lc3267/Documents/CodeWorkspace/QRCodeGen/bwCloud.png;" vertex="1" parent="1">
+          <mxGeometry x="1153.9966666666664" y="1677.9988888888886" width="520" height="520" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
