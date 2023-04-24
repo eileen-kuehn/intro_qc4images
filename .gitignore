@@ -6,6 +6,8 @@ images/*
 results/*.jpg
 results/*.png
 
+ibmq_access.py
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
