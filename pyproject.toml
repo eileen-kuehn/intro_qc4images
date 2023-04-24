@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "girlsday23"
+version = "0.1.0"
+description = ""
+authors = ["lc3267 <melvin.strobl@kit.edu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+matplotlib = "^3.7.1"
+qiskit = "^0.42.1"
+ipykernel = "^6.22.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
