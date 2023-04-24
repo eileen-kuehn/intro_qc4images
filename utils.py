@@ -20,7 +20,10 @@ def load_image(path):
 Here we can reduce the number of possible values for the image. If you call the function with `r_value = 2**x`, it guarantees that if you convert your pixel values to binary the last x bits will be zero. This hardly affects the image quality but reduces the number of qubits and hugely decreases the computational complexity of the mapping. Should also make the quantum image smoother. 
 
 """
-def reduce_rgb_values(image, r_value):
+def reduce_rgb_values(image, qubits):
+    r_value = 2**(8-qubits)
+    max_value = 256-r_value
+
     image = copy(image)
     height, width, channel = image.shape
     for h in range(height):
@@ -36,8 +39,11 @@ def reduce_rgb_values(image, r_value):
                     value -= r_value
                 image[h, w, c] = value
                 
-    return image
+    return image, max_value
 
+def print_mapping(mapping):
+    for A, B in mapping.items():
+        print(f"{A} wird auf {B} abgebildet")
 
 def filling_zeros(binary, n):
     difference = (n - len(binary))*"0"
