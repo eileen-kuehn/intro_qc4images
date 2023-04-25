@@ -1,6 +1,6 @@
 import matplotlib.image as mpimg
 from matplotlib.pyplot import imshow
-from qiskit import QuantumCircuit, transpile, IBMQ
+from qiskit import QuantumCircuit, transpile, IBMQ, QuantumRegister
 from qiskit_aer import AerSimulator
 import numpy as np
 from copy import copy
@@ -91,6 +91,17 @@ def create_mapping(noisy_circuit, backend=None, shots=1024):
         mapping[filling_zeros(binary_number, qubits)] = max(counts, key=counts.get)
 
     return mapping
+
+def create_rgb_qubits(qubits):
+    qregs = []
+    for q in range(qubits):
+        qregs.append(QuantumRegister(1, f"Red-{q}"))
+    for q in range(qubits):
+        qregs.append(QuantumRegister(1, f"Green-{q}"))
+    for q in range(qubits):
+        qregs.append(QuantumRegister(1, f"Blue-{q}"))
+
+    return qregs
 
 def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
     qubits = len(noisy_circuit.qubits)
