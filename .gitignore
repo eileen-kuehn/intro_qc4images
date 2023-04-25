@@ -8,6 +8,8 @@ results/*.png
 
 ibmq_access.py
 
+additional_resources
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
