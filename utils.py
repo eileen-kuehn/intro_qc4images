@@ -17,12 +17,18 @@ def load_image(path):
 
 
 """
-Here we can reduce the number of possible values for the image. If you call the function with `r_value = 2**x`, it guarantees that if you convert your pixel values to binary the last x bits will be zero. This hardly affects the image quality but reduces the number of qubits and hugely decreases the computational complexity of the mapping. Should also make the quantum image smoother. 
-
+Here we can reduce the number of possible values for the image.
+If you call the function with `r_value = 2**x`, it guarantees that if you
+convert your pixel values to binary the last x bits will be zero.
+This hardly affects the image quality but reduces the number of qubits and
+hugely decreases the computational complexity of the mapping. Should also
+make the quantum image smoother.
 """
+
+
 def reduce_rgb_values(image, qubits):
-    r_value = 2**(8-qubits)
-    max_value = 256-r_value
+    r_value = 2 ** (8 - qubits)
+    max_value = 256 - r_value
 
     image = copy(image)
     height, width, channel = image.shape
@@ -31,23 +37,26 @@ def reduce_rgb_values(image, qubits):
             for c in range(channel):
                 value = image[h, w, c]
                 difference = value % r_value
-                if difference < r_value/2:
+                if difference < r_value / 2:
                     value -= difference
                 else:
-                    value += (r_value - difference)
+                    value += r_value - difference
                 if value > 255:
                     value -= r_value
                 image[h, w, c] = value
-                
+
     return image
+
 
 def print_mapping(mapping):
     for A, B in mapping.items():
         print(f"{A} wird auf {B} abgebildet")
 
+
 def filling_zeros(binary, n):
-    difference = (n - len(binary))*"0"
+    difference = (n - len(binary)) * "0"
     return difference + binary
+
 
 def get_result(circuit, backend=None, shots=1024, prob=True):
     if backend is None:
@@ -60,17 +69,22 @@ def get_result(circuit, backend=None, shots=1024, prob=True):
                 group=group,
                 project=project,
             )
-        except IBMQ.IBMQAccountError: # we will run into that when trying to connect to already enabled account
+        except (
+            IBMQ.IBMQAccountError
+        ):  # we will run into that when trying to connect to already enabled account
             pass
         backend = provider.get_backend(backend)
 
-    job_sim = backend.run(transpile(circuit, backend, optimization_level=0), shots=shots)
+    job_sim = backend.run(
+        transpile(circuit, backend, optimization_level=0), shots=shots
+    )
     result_sim = job_sim.result().get_counts()
 
     if prob:
-        return {k:int(100*v/shots) for k, v in result_sim.items()}
+        return {k: int(100 * v / shots) for k, v in result_sim.items()}
     else:
         return result_sim
+
 
 def create_mapping(noisy_circuit, backend=None, shots=1024):
     mapping = {}
@@ -79,18 +93,19 @@ def create_mapping(noisy_circuit, backend=None, shots=1024):
     for i in range(2**qubits):
         encoding_circuit = QuantumCircuit(qubits)
         binary_number = bin(i)[2:]
-        for index, q in enumerate(binary_number[::-1]): #LSB = Qubit 0
+        for index, q in enumerate(binary_number[::-1]):  # LSB = Qubit 0
             if q == "1":
                 encoding_circuit.x(index)
         encoding_circuit.barrier()
 
         full_circuit = encoding_circuit.compose(noisy_circuit)
         full_circuit.measure_all()
-        
+
         counts = get_result(full_circuit, backend, shots, prob=False)
         mapping[filling_zeros(binary_number, qubits)] = max(counts, key=counts.get)
 
     return mapping
+
 
 def create_rgb_qubits(qubits):
     qregs = []
@@ -103,6 +118,7 @@ def create_rgb_qubits(qubits):
 
     return qregs
 
+
 def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
     qubits = len(noisy_circuit.qubits)
 
@@ -111,53 +127,54 @@ def create_rgb_mapping(noisy_circuit, backend=None, shots=1024, channels=3):
     for i in range(2**qubits):
         encoding_circuit = QuantumCircuit(qubits)
         for c in range(channels):
-            
             binary_number = bin(i)[2:]
-            for index, q in enumerate(binary_number[::-1]): #LSB = Qubit 0
+            for index, q in enumerate(binary_number[::-1]):  # LSB = Qubit 0
                 if q == "1":
                     encoding_circuit.x(index)
             encoding_circuit.barrier()
 
         full_circuit = encoding_circuit.compose(noisy_circuit)
         full_circuit.measure_all()
-        
+
         counts = get_result(full_circuit, backend, shots, prob=False)
 
         rgb_mapping[filling_zeros(binary_number, qubits)] = max(counts, key=counts.get)
 
     return rgb_mapping
 
+
 def convert_image(qubits, image, mapping, pixels_to_transform):
     image = copy(image)
     channels = image.shape[2]
-    
+
     for pixel in pixels_to_transform:
         row = pixel[0]
         column = pixel[1]
-        
-        for channel in range(channels):        
+
+        for channel in range(channels):
             value = image[row, column, channel]
             b_value = bin(value)[2:]
             b_value2 = filling_zeros(b_value, 8)
 
             cut_b_value = b_value2[:qubits]
 
-            new_b_value = mapping[cut_b_value] + (8-(qubits))*"0"
+            new_b_value = mapping[cut_b_value] + (8 - (qubits)) * "0"
 
             image[row, column, channel] = int(new_b_value, 2)
-                
+
     return image
+
 
 def convert_rgb_image(qubits, image, mapping, pixels_to_transform):
     image = copy(image)
     channels = image.shape[2]
-    
+
     for pixel in pixels_to_transform:
         row = pixel[0]
         column = pixel[1]
-        
+
         cut_b_value = ""
-        for channel in range(channels):        
+        for channel in range(channels):
             value = image[row, column, channel]
             b_value = bin(value)[2:]
             b_value2 = filling_zeros(b_value, 8)
@@ -166,12 +183,15 @@ def convert_rgb_image(qubits, image, mapping, pixels_to_transform):
 
         new_b_value = mapping[cut_b_value]
 
-        for channel in range(channels):        
+        for channel in range(channels):
+            image[row, column, channel] = int(
+                new_b_value[channel * qubits : (channel + 1) * qubits]
+                + (8 - (qubits)) * "0",
+                2,
+            )
 
-            image[row, column, channel] = int(new_b_value[channel*qubits:(channel+1)*qubits] + (8-(qubits))*"0", 2)
-                
     return image
 
 
 def show_bw_image(image):
-    imshow(image, cmap='gray', vmin=0, vmax=255)
+    imshow(image, cmap="gray", vmin=0, vmax=255)
