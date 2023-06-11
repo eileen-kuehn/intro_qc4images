@@ -1,17 +1,39 @@
-[tool.poetry]
-name = "girlsday23"
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "intro_qc4images"
 version = "0.1.0"
 description = ""
-authors = ["lc3267 <melvin.strobl@kit.edu>"]
+authors = [
+    {name="Melvin Strobl", email="melvin.strobl@kit.edu"},
+    {name="Christof Wendenius", email="christof.wendenius@kit.edu"},
+    {name="Eileen Kuehn", email="eileen.kuehn@kit.edu"},
+]
+maintainers = [
+    {name="Eileen Kuehn", email="eileen.kuehn@kit.edu"},
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+]
+license = {file = "LICENSE"}
+keywords = ["quantum computing","image processing"]
+requires-python = ">=3.10"
 readme = "README.md"
+dependencies = [
+    "matplotlib >= 3.7",
+    "qiskit >= 0.42",
+    "ipykernel >= 6.22",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-matplotlib = "^3.7.1"
-qiskit = "^0.42.1"
-ipykernel = "^6.22.0"
+[project.optional-dependencies]
+dev = [
+    "black[jupyter]",
+]
 
+[project.urls]
+Source = "https://github.com/eileen-kuehn/intro_qc4images"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.setuptools.packages.find]
+include = ["intro_qc4images", "intro_qc4images.*", "images"]

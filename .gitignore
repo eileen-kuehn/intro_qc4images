@@ -3,6 +3,8 @@ images/*
 !images/Puffin.jpg
 !images/Cat.jpg
 !images/Kitten.jpg
+!images/plusstate.png
+!images/qbits.png
 results/*.jpg
 results/*.png
 

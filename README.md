@@ -1,10 +1,13 @@
-# girlsday23
+# Einführung ins Quantencomputing mit Bildbearbeitung
 
-There are three example images in the `images` folder. Feel free to add more to experiment (these will be ignored by git). 
+Dieses Projekt gibt eine Einführung ins Quantencomputing auf Basis einfacher
+Operationen zur Darstellung von Bildern.
 
-Ways to change the output:
-- change (fake) backend
-- change the circuit
-- change number of repetitions of the circuit
-- change number of qubits (up to 8)
-- change number of shots
+Es werden keine Grundkenntnisse vorausgesetzt. Hierzu werden drei verschiedene
+Jupyter-Notebooks zur Verfügung gestellt:
+
+* [Python Basics](Python_Basics.ipynb)
+* [Grundlagen der Bildverarbeitung](Image_Basics.ipynb)
+* [Quantencomputing in der Bildbearbeitung](QolorQoding.ipynb)
+
+Ja nach Kenntnisstand kann man mit dem entsprechenden Notebook beginnen.
