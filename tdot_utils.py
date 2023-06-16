@@ -15,6 +15,7 @@ from utils import (
     get_result,
     create_rgb_mapping,
 )
+from IPython.core.display_functions import display
 
 
 qubits = widgets.IntSlider(min=0, max=8, value=2, description="Qubit Anzahl")
@@ -23,6 +24,7 @@ original_image = load_image(cat_path)
 image = original_image
 pixels_to_transform = []
 quantum_circuit = None
+quantum_cat_output = widgets.Output()
 
 
 def reduce_values(qubits):
@@ -77,12 +79,15 @@ rect = interactive(
 
 def process_image(option):
     global quantum_circuit
+    current_circuit = None
     if option == "Invertierte Katze":
         quantum_circuit = QuantumCircuit(qubits.value)
+        print("setting circuit")
         for i in range(qubits.value):
             quantum_circuit.x(i)
         mapping = create_mapping(quantum_circuit)
         q_image = convert_image(qubits.value, image, mapping, pixels_to_transform)
+        current_circuit = quantum_circuit
     elif option == "Vertauschte Katze":
         rgb_qubits = create_rgb_qubits(qubits.value)
         quantum_circuit = QuantumCircuit(*rgb_qubits)
@@ -91,6 +96,7 @@ def process_image(option):
         quantum_circuit.swap(2, 5)
         mapping = create_rgb_mapping(quantum_circuit)
         q_image = convert_rgb_image(qubits.value, image, mapping, pixels_to_transform)
+        current_circuit = quantum_circuit
     elif option == "Verrauschte Katze":
         # quantum_circuit = QuantumCircuit(qubits.value * 3)
         REPS = 7  # how often do you want to repeat your circuit ?
@@ -103,16 +109,38 @@ def process_image(option):
         backend = FakeMelbourne()
         mapping = create_rgb_mapping(overall_quantum_circuit, backend=backend)
         q_image = convert_rgb_image(qubits.value, image, mapping, pixels_to_transform)
+        current_circuit = overall_quantum_circuit
     elif option == "Zufällige Katze":
         quantum_circuit = QuantumCircuit(qubits.value)
         for i in range(qubits.value):
             quantum_circuit.h(i)
         mapping = create_mapping(quantum_circuit)
         q_image = convert_image(qubits.value, image, mapping, pixels_to_transform)
+        current_circuit = quantum_circuit
     else:
         quantum_circuit = QuantumCircuit(qubits.value)
         mapping = create_mapping(quantum_circuit)
         q_image = convert_image(qubits.value, image, mapping, pixels_to_transform)
+        current_circuit = quantum_circuit
 
     plt.imshow(q_image)
     plt.show()
+
+    with quantum_cat_output:
+        quantum_cat_output.clear_output()
+        display(current_circuit.draw("mpl"))
+
+
+quantum_cat = interactive(
+    process_image,
+    option=widgets.ToggleButtons(
+        options=[
+            "Originale Katze",
+            "Invertierte Katze",
+            "Zufällige Katze",
+            "Vertauschte Katze",
+            "Verrauschte Katze",
+        ],
+        description="Verarbeitung des Bildes mit dem Quantencomputer",
+    ),
+)
