@@ -133,6 +133,30 @@ Im Quantencomputing haben wir nun für ein Qubit die Möglichkeit als Zustand je
         mapping = create_mapping(quantum_circuit)
         q_image = convert_image(qubits.value, image, mapping, pixels_to_transform)
         current_circuit = quantum_circuit
+        description = """
+Wie du beim Anschauen der invertierten Katze lernen konntest, können wir auf dem 
+Nordpol unseres Qubits den Wert 0 abbilden und auf Südpol den Wert 1. Beim Messen
+des Qubits bekommen wir in dieser Ebene dann entweder den Wert 0 oder den Wert 1.
+Was meinst du, was passiert, wenn wir den Zustand des Qubits so ändern, dass sich
+dieser genau zwischen 0 und 1, also genau auf dem Äquator, befindet?
+
+<img src="images/plusstate.png" alt="Plus Status" />
+<br/>
+Auf dem Äquator messen wir mit einer Wahrscheinlichkeit von 50% 0 oder 1.
+Erst durch die Messung selbst wird festgelegt, welchen Zustand das Qubit hat.
+Ein Gate, mit dem wir den Zustand so ändern können, ist das sogenannte 
+<i>Hadamard Gate</i>. Schau dir gleich mal den Quantenschaltkreis an, um zu
+schauen, wie genau wir diesen verändert haben, um die einzelnen Pixel unserer
+Katze zufällig zu verändern.
+<br/><br/>
+Klasse! Jetzt weißt du ja schon, dass so ein Qubit mehr Zustände annehmen kann,
+als ein klassissches Bit. Es gibt aber noch mehr! Bisher war immer die Rede von
+einem einzigen Qubit. Wir können im Quantencomputing aber auch zwei Qubits
+miteinander verschränken, so, dass wenn wir eins der beiden messen, das andere
+exakt den gleichen Zustand annehmen wird.
+Das ist ein bisschen schwierig zu erklären, am Besten fragst du uns einfach
+wenn du mehr dazu wissen möchtest!
+"""
     else:
         quantum_circuit = QuantumCircuit(qubits.value)
         mapping = create_mapping(quantum_circuit)
