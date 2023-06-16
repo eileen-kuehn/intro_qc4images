@@ -26,7 +26,6 @@ pixels_to_transform = []
 quantum_circuit = None
 quantum_cat_circuit = widgets.Output()
 quantum_cat_description = widgets.Output()
-quantum_cat_description.layout.width = "350px"
 quantum_cat_mapping = widgets.Output()
 
 
@@ -36,6 +35,9 @@ def reduce_values(qubits):
     plt.imshow(image)
     plt.show()
     return
+
+
+qubit_cat = interactive(reduce_values, qubits=qubits)
 
 
 def show_rectangular_selection(left_x, left_y, bottom_x, bottom_y):
@@ -79,11 +81,23 @@ rect = interactive(
     ),
 )
 
+left_x = rect.children[0]
+left_y = rect.children[1]
+bottom_x = rect.children[2]
+bottom_y = rect.children[3]
+left_box = widgets.HBox([left_x, left_y])
+bottom_box = widgets.HBox([bottom_x, bottom_y])
+cat_selection = widgets.VBox([left_box, bottom_box, rect.children[4]])
+
 
 def process_image(option):
     global quantum_circuit
     current_circuit = None
-    description = "Diese Katze wurde nicht durch einen Quantencomputer bearbeitet. Schau dir ruhig auch den Quantenschaltkreis an, dieser sollte leer sein. Es wird also keine Operation, also kein Gate, auf unseren Qubits ausgeführt."
+    description = """
+Diese Katze wurde nicht durch einen Quantencomputer bearbeitet. Schau dir ruhig
+auch den Quantenschaltkreis an, dieser sollte leer sein. Es wird also keine
+Operation, also kein Gate, auf unseren Qubits ausgeführt.
+"""
     if option == "Invertierte Katze":
         quantum_circuit = QuantumCircuit(qubits.value)
         for i in range(qubits.value):
@@ -113,19 +127,58 @@ Im Quantencomputing haben wir nun für ein Qubit die Möglichkeit als Zustand je
         mapping = create_rgb_mapping(quantum_circuit)
         q_image = convert_rgb_image(qubits.value, image, mapping, pixels_to_transform)
         current_circuit = quantum_circuit
+        description = """
+Wir können Verschränkungen nutzen, um den Zustand zweier Qubits zu tauschen und
+somit auch die Farben in unserem Bild. Dazu erzeugen wir einen Quantenschaltkreis
+mit 3 mal so vielen Qubits wie wir bisher gebraucht haben, da wir nun alle 3 
+Farbkanäle abbilden wollen.
+Anschließend tauschen wir jeweils jedes dritte Qubits miteinander.
+"""
     elif option == "Verrauschte Katze":
         # quantum_circuit = QuantumCircuit(qubits.value * 3)
         REPS = 7  # how often do you want to repeat your circuit ?
         overall_quantum_circuit = QuantumCircuit(3 * qubits.value)
         for i in range(REPS):
-            overall_quantum_circuit.compose(quantum_circuit, inplace=True)
-            overall_quantum_circuit.barrier()
-            overall_quantum_circuit.compose(quantum_circuit.inverse(), inplace=True)
-            overall_quantum_circuit.barrier()
+            if len(quantum_circuit.qubits) < len(overall_quantum_circuit.qubits):
+                for i in range(3):
+                    base = len(quantum_circuit.qubits) * i
+                    overall_quantum_circuit.compose(quantum_circuit, inplace=True, qubits=range(base, base + len(quantum_circuit.qubits)))
+                overall_quantum_circuit.barrier()
+                for i in range(3):
+                    base = len(quantum_circuit.qubits) * i
+                    overall_quantum_circuit.compose(quantum_circuit.inverse(), inplace=True, qubits=range(base, base + len(quantum_circuit.qubits)))
+                overall_quantum_circuit.barrier()
+            else:
+                overall_quantum_circuit.compose(quantum_circuit, inplace=True)
+                overall_quantum_circuit.barrier()
+                overall_quantum_circuit.compose(quantum_circuit.inverse(), inplace=True)
+                overall_quantum_circuit.barrier()
         backend = FakeMelbourne()
         mapping = create_rgb_mapping(overall_quantum_circuit, backend=backend)
         q_image = convert_rgb_image(qubits.value, image, mapping, pixels_to_transform)
         current_circuit = overall_quantum_circuit
+        description = """
+Bisher liefen die erzeugten Katenzbilder und Berechnung in einer "idealen" Welt.
+Das heißt, wir hatten keine Störeinflüsse von außen und die Simulationen lieferten
+stets das Ergebnis, das wir mathematisch auch erwarten würden.
+Nun sind Quantencomputer heutzutage leider noch alles andere als perfekt. 
+Um uns das mal genauer anzuschauen, zeigen wir dir hier noch eine weitere tolle
+Eigenschaft von Quantencomputern. Jede Operation, die wir auf einem solchen
+Gerät ausführen ist (bis auf die Messung am Ende) umkehrbar!
+Das bedeutet, wir können jeden Schaltkreis einfach nehmen, umdrehen und an
+das Original anhängen.
+Das Ergebnis sollte im Idealfall ein Schaltkreis sein, der nichts an unserem
+Bild ändert... oder?
+<br/><br/>
+Huch! Wie du siehst, ist da wohl was schiefgegangen, oder?
+Nein, leider nicht. Die heutigen Quantencomputer sind in der Tat sehr 
+fehleranfällig.
+<br/><br/>
+Aber Zeiten ändern sich! Die Leute von IBM, deren Maschinen wir gerade verwenden
+und viele anderen Forschenden auf der Welt, versuchen Quantencomputer so schnell
+wie möglich fehlerfrei und vor allem auch größer zu bauen. Dann können wir unsere
+Katzenbilder bald schon in voller Größe und Pixeldichte darstellen.
+"""
     elif option == "Zufällige Katze":
         quantum_circuit = QuantumCircuit(qubits.value)
         for i in range(qubits.value):
@@ -190,3 +243,12 @@ quantum_cat = interactive(
         description="Verarbeitung des Bildes mit dem Quantencomputer",
     ),
 )
+transformed_quantum_cat = quantum_cat.children[1]
+transformed_quantum_cat.layout.width = "315px"
+transformed_quantum_cat.layout.max_width = "315px"
+transformed_quantum_cat.layout.min_width = "315px"
+
+details = widgets.HBox([
+    quantum_cat.children[1], 
+    widgets.Accordion(children=[quantum_cat_description, quantum_cat_circuit, quantum_cat_mapping], titles=["Beschreibung", "Quantenschaltkreis", "Mapping"])])
+cat_types = widgets.VBox([quantum_cat.children[0], details])
