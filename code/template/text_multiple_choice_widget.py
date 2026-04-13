@@ -9,15 +9,15 @@ translations = {
         "success": "Korrekt!",
         "missing": "Du hast noch richtige Antworten nicht ausgewählt.",
         "wrong": "Du hast falsche Antworten ausgewählt.",
-        "nothing_selected": "Bitte wähle mindestens eine Option aus."
+        "nothing_selected": "Bitte wähle mindestens eine Option aus.",
     },
     "en": {
         "check_button": "Check answer",
         "success": "Correct!",
         "missing": "You missed one or more correct answers.",
         "wrong": "You selected one or more incorrect answers.",
-        "nothing_selected": "Please select at least one option."
-    }
+        "nothing_selected": "Please select at least one option.",
+    },
 }
 
 
@@ -28,13 +28,17 @@ def show_multiple_choice_with_feedback(options, feedback_messages=None, height="
     # Zeilen mit Checkboxen und Texten
     rows = []
     for i, (text, correct) in enumerate(options):
-        checkbox = widgets.Checkbox(value=False, indent=False, layout=widgets.Layout(width="30px"))
+        checkbox = widgets.Checkbox(
+            value=False, indent=False, layout=widgets.Layout(width="30px")
+        )
         math_widget = widgets.HTMLMath(
             value=text,
             style=dict(font_size="20px"),
-            layout=widgets.Layout(height=height)
+            layout=widgets.Layout(height=height),
         )
-        row = widgets.HBox([checkbox, math_widget], layout=widgets.Layout(align_items="center"))
+        row = widgets.HBox(
+            [checkbox, math_widget], layout=widgets.Layout(align_items="center")
+        )
         checkboxes.append((checkbox, correct))
         rows.append(row)
 
@@ -45,7 +49,7 @@ def show_multiple_choice_with_feedback(options, feedback_messages=None, height="
     check_button = widgets.Button(
         description=translations[wl]["check_button"],
         icon="check-circle",
-        layout=widgets.Layout(margin="0 0 0 20px", height="fit-content")
+        layout=widgets.Layout(margin="0 0 0 20px", height="fit-content"),
     )
 
     # Button-Klickfunktion
@@ -59,8 +63,12 @@ def show_multiple_choice_with_feedback(options, feedback_messages=None, height="
                     output.wrong(translations[wl]["nothing_selected"])
                     return
 
-                wrong_selected = any(cb.value and not correct for cb, correct in checkboxes)
-                missing_correct = any(not cb.value and correct for cb, correct in checkboxes)
+                wrong_selected = any(
+                    cb.value and not correct for cb, correct in checkboxes
+                )
+                missing_correct = any(
+                    not cb.value and correct for cb, correct in checkboxes
+                )
 
                 if not wrong_selected and not missing_correct:
                     output.correct(translations[wl]["success"])
@@ -77,8 +85,12 @@ def show_multiple_choice_with_feedback(options, feedback_messages=None, height="
                     output.wrong(feedback_messages["nothing_selected"])
                     return
 
-                wrong_selected = any(cb.value and not correct for cb, correct in checkboxes)
-                missing_correct = any(not cb.value and correct for cb, correct in checkboxes)
+                wrong_selected = any(
+                    cb.value and not correct for cb, correct in checkboxes
+                )
+                missing_correct = any(
+                    not cb.value and correct for cb, correct in checkboxes
+                )
 
                 if not wrong_selected and not missing_correct:
                     output.correct(feedback_messages["success"])
@@ -91,8 +103,7 @@ def show_multiple_choice_with_feedback(options, feedback_messages=None, height="
 
     # Layout: Optionen und Button nebeneinander
     main_layout = widgets.HBox(
-        [options_box, check_button],
-        layout=widgets.Layout(align_items="flex-start")
+        [options_box, check_button], layout=widgets.Layout(align_items="flex-start")
     )
 
     display(main_layout, output_widget)

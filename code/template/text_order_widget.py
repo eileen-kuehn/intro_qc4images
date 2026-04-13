@@ -8,14 +8,15 @@ translations = {
     "de": {
         "check_button": "Reihenfolge prüfen",
         "success": "Korrekt!",
-        "error": "Die Reihenfolge ist noch nicht korrekt."
+        "error": "Die Reihenfolge ist noch nicht korrekt.",
     },
     "en": {
         "check_button": "Check order",
         "success": "Correct!",
-        "error": "The order is not correct yet."
-    }
+        "error": "The order is not correct yet.",
+    },
 }
+
 
 def show_text_order(options, option_width="75%"):
     text_widgets = []
@@ -35,12 +36,16 @@ def show_text_order(options, option_width="75%"):
 
     # Build rows (text, up, and down buttons)
     for i, option in enumerate(randomize()):
-        text_widget = widgets.HTML(_format_option(option), layout=widgets.Layout(width=option_width))
+        text_widget = widgets.HTML(
+            _format_option(option), layout=widgets.Layout(width=option_width)
+        )
         up_button = widgets.Button(icon="chevron-up", disabled=i == 0)
-        down_button = widgets.Button(icon="chevron-down", disabled=i == len(options) - 1)
+        down_button = widgets.Button(
+            icon="chevron-down", disabled=i == len(options) - 1
+        )
 
         def up(idx, button):
-            up_text = text_widgets[idx- 1].value
+            up_text = text_widgets[idx - 1].value
             curr_text = text_widgets[idx].value
 
             text_widgets[idx - 1].value = curr_text
@@ -73,7 +78,9 @@ def show_text_order(options, option_width="75%"):
             output.correct(translations[wl]["success"])
 
     # Build check button
-    check_button = widgets.Button(description=translations[wl]["check_button"], icon="check-circle")
+    check_button = widgets.Button(
+        description=translations[wl]["check_button"], icon="check-circle"
+    )
     check_button.on_click(check_order)
 
     display(widgets.VBox(row_widgets))

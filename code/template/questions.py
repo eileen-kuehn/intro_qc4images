@@ -11,11 +11,13 @@ translations = {
         "default_input_description": "Die Antwort:",
         "default_success_message": "Die Antwort ist korrekt!",
         "default_error_message": "Deine Antwort ist noch nicht korrekt.",
-        "placeholder": "Gib hier die Antwort ein und bestätige anschließend die Eingabe.",
+        "placeholder": (
+            "Gib hier die Antwort ein und bestätige anschließend die Eingabe."
+        ),
         "save_button": "Speichern",
         "edit_button": "Bearbeiten",
         "check_button": "Prüfen",
-        "answer_not_found": "Die Antwort wurde nicht gefunden."
+        "answer_not_found": "Die Antwort wurde nicht gefunden.",
     },
     "en": {
         "default_input_prompt": "The question:",
@@ -26,8 +28,8 @@ translations = {
         "save_button": "Save",
         "edit_button": "Edit",
         "check_button": "Check",
-        "answer_not_found": "The answer was not found."
-    }
+        "answer_not_found": "The answer was not found.",
+    },
 }
 
 
@@ -43,14 +45,15 @@ def load_answer(identifier):
 
 
 def store_answer(identifier, input_description, answer):
-    state = {
-        "Beschreibung": input_description,
-        "Antwort": answer
-    }
+    state = {"Beschreibung": input_description, "Antwort": answer}
     storage.store_state(WIDGET_TYPE, identifier, state)
 
 
-def prompt_answer(exercise_identifier, input_prompt=translations[wl]["default_input_prompt"], input_description=translations[wl]["default_input_description"]):
+def prompt_answer(
+    exercise_identifier,
+    input_prompt=translations[wl]["default_input_prompt"],
+    input_description=translations[wl]["default_input_description"],
+):
     existing_answer = load_answer(exercise_identifier)
 
     # Define widgets
@@ -58,12 +61,12 @@ def prompt_answer(exercise_identifier, input_prompt=translations[wl]["default_in
 
     input_area = widgets.Textarea(
         placeholder=translations[wl]["placeholder"],
-        description=f'{input_prompt}:',
+        description=f"{input_prompt}:",
         disabled=existing_answer is not None,
         value=existing_answer,
         rows=2,
-        style=dict(description_width='initial'),
-        layout=widgets.Layout(width='75%')
+        style=dict(description_width="initial"),
+        layout=widgets.Layout(width="75%"),
     )
 
     def to_save_button(button):
@@ -131,7 +134,14 @@ def contains_check(solutions, equals_ignore_case=True, every_solution_present=Fa
     return check
 
 
-def prompt_answer_with_check(exercise_identifier, input_prompt=translations[wl]["default_input_prompt"], input_description=translations[wl]["default_input_description"], check_func=None, success_message=translations[wl]["default_success_message"], error_message=translations[wl]["default_error_message"]):
+def prompt_answer_with_check(
+    exercise_identifier,
+    input_prompt=translations[wl]["default_input_prompt"],
+    input_description=translations[wl]["default_input_description"],
+    check_func=None,
+    success_message=translations[wl]["default_success_message"],
+    error_message=translations[wl]["default_error_message"],
+):
     existing_answer = load_answer(exercise_identifier)
 
     # Define widgets
@@ -140,12 +150,12 @@ def prompt_answer_with_check(exercise_identifier, input_prompt=translations[wl][
 
     input_area = widgets.Textarea(
         placeholder=translations[wl]["placeholder"],
-        description=f'{input_prompt}:',
+        description=f"{input_prompt}:",
         disabled=existing_answer is not None,
         value=existing_answer,
         rows=2,
-        style=dict(description_width='initial'),
-        layout=widgets.Layout(width='75%')
+        style=dict(description_width="initial"),
+        layout=widgets.Layout(width="75%"),
     )
 
     def to_save_button(button):
@@ -167,7 +177,9 @@ def prompt_answer_with_check(exercise_identifier, input_prompt=translations[wl][
             text_output.clear_output()
             _beautify_output(input_description, input_area.value)
 
-    check_button = widgets.Button(description=translations[wl]["check_button"], icon="check-circle")
+    check_button = widgets.Button(
+        description=translations[wl]["check_button"], icon="check-circle"
+    )
 
     # Handle click logic
     def handle_click(button):
@@ -204,7 +216,7 @@ def prompt_answer_with_check(exercise_identifier, input_prompt=translations[wl][
     display(widget)
     display(text_output)
     display(check_output)
-    
+
 
 def _beautify_output(label, answer):
     html_source = """
@@ -212,7 +224,9 @@ def _beautify_output(label, answer):
       <h4>{label}</h4>
       {answer}
     </div>
-    """.format(label=label, answer=html.escape(answer).replace("\n", "<br>"))
+    """.format(
+        label=label, answer=html.escape(answer).replace("\n", "<br>")
+    )
 
     output.html(html_source)
 

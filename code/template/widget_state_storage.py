@@ -2,7 +2,6 @@ import os
 import json
 from datetime import datetime
 
-
 STORAGE_FILE_PATH = ".answers.json"
 
 
@@ -14,7 +13,7 @@ def store_state(widget_type, identifier, state):
             data = json.load(f)
 
     state["Zeitstempel"] = datetime.now().replace(microsecond=0).isoformat()
-    
+
     key = _to_key(widget_type, identifier)
     data[key] = state
 

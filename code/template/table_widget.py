@@ -18,49 +18,53 @@ translations = {
         "check_button": "Prüfen",
         "save_success": "Die Tabelle wurde gespeichert.",
         "correct": "Klasse! Die Tabelle ist korrekt.",
-        "wrong": "Die Tabelle ist noch nicht korrekt ausgefüllt..."
+        "wrong": "Die Tabelle ist noch nicht korrekt ausgefüllt...",
     },
     "en": {
         "save_button": "Save",
         "check_button": "Check",
         "save_success": "The table has been saved.",
         "correct": "Great! The table is correct.",
-        "wrong": "The table is not yet filled in correctly..."
-    }
+        "wrong": "The table is not yet filled in correctly...",
+    },
 }
 
 
-class Header():
+class Header:
 
     def __init__(self, text):
         self.text = text
 
     def to_widget(self, width):
         html = f"<div style='background-color: lightgray; text-align: center'><b>{self.text}</b></div>"
-        return widgets.HTML(html, layout=widgets.Layout(border='1px solid',
-                                                        margin="0",
-                                                        width=f"{width}px"))
+        return widgets.HTML(
+            html,
+            layout=widgets.Layout(border="1px solid", margin="0", width=f"{width}px"),
+        )
 
 
-class TextInput():
+class TextInput:
 
     def __init__(self, placeholder=""):
         self.placeholder = placeholder
 
     def to_widget(self, width):
-        return widgets.Text(placeholder=self.placeholder,
-                            layout=widgets.Layout(border='1px solid', width=f"{width}px", margin="0"))
+        return widgets.Text(
+            placeholder=self.placeholder,
+            layout=widgets.Layout(border="1px solid", width=f"{width}px", margin="0"),
+        )
 
 
-class Content():
+class Content:
     def __init__(self, text):
         self.text = text
 
     def to_widget(self, width):
         html = f"<div style='text-align: center'><b>{self.text}</b></div>"
-        return widgets.HTML(html, layout=widgets.Layout(border='1px solid',
-                                                        margin="0",
-                                                        width=f"{width}px"))
+        return widgets.HTML(
+            html,
+            layout=widgets.Layout(border="1px solid", margin="0", width=f"{width}px"),
+        )
 
 
 def dataframe_to_table_widget(df: pd.DataFrame, fill_values: bool = True):
@@ -116,12 +120,11 @@ def check_table(table_cells, correct_df):
             except (ValueError, ZeroDivisionError):
                 return 0.0
 
-        user_matrix = [
-            [parse_value(cell) for cell in row]
-            for row in data_only
-        ]
+        user_matrix = [[parse_value(cell) for cell in row] for row in data_only]
 
-        user_df = pd.DataFrame(user_matrix, columns=correct_df.columns, index=correct_df.index)
+        user_df = pd.DataFrame(
+            user_matrix, columns=correct_df.columns, index=correct_df.index
+        )
 
         # Vergleich mit korrekt gelöster Matrix
         if np.allclose(user_df.values, correct_df.values, atol=1e-2):
@@ -133,10 +136,14 @@ def check_table(table_cells, correct_df):
         return WRONG, f"Fehler beim Prüfen der Tabelle: {e}"
 
 
-def show_table(exercise_identifier, table_content, column_widths, correct_df=None, check_func=None):
+def show_table(
+    exercise_identifier, table_content, column_widths, correct_df=None, check_func=None
+):
     output_widget = widgets.Output()
     entries = _load_table_entries(exercise_identifier)
-    all_widgets = [["" for _ in range(len(table_content[0]))] for _ in range(len(table_content))]
+    all_widgets = [
+        ["" for _ in range(len(table_content[0]))] for _ in range(len(table_content))
+    ]
 
     # Create rows
     rows = []
@@ -162,10 +169,16 @@ def show_table(exercise_identifier, table_content, column_widths, correct_df=Non
         rows.append(widgets.HBox(row_widgets))
 
     # Create buttons
-    save_button = widgets.Button(description=translations[wl]["save_button"], icon="save",
-                                 layout=widgets.Layout(margin="0" if check_func is None else "5"))
-    check_button = widgets.Button(description=translations[wl]["check_button"], icon="check-circle",
-                                  layout=widgets.Layout(margin="5"))
+    save_button = widgets.Button(
+        description=translations[wl]["save_button"],
+        icon="save",
+        layout=widgets.Layout(margin="0" if check_func is None else "5"),
+    )
+    check_button = widgets.Button(
+        description=translations[wl]["check_button"],
+        icon="check-circle",
+        layout=widgets.Layout(margin="5"),
+    )
 
     def on_save(ignored):
         entries = list(map(lambda w: w.value, text_inputs))
@@ -176,7 +189,10 @@ def show_table(exercise_identifier, table_content, column_widths, correct_df=Non
             output.correct(translations[wl]["save_success"])
 
     def on_check(ignored):
-        text_values = [["" for _ in range(len(table_content[0]))] for _ in range(len(table_content))]
+        text_values = [
+            ["" for _ in range(len(table_content[0]))]
+            for _ in range(len(table_content))
+        ]
 
         for j in range(len(text_values)):
             for i in range(len(text_values[0])):
@@ -202,16 +218,28 @@ def show_table(exercise_identifier, table_content, column_widths, correct_df=Non
         rows[-1].children += (save_button,)
         display(widgets.VBox(rows), output_widget)
     else:
-        display(widgets.HBox([widgets.VBox(rows), widgets.VBox([save_button, check_button])]), output_widget)
+        display(
+            widgets.HBox(
+                [widgets.VBox(rows), widgets.VBox([save_button, check_button])]
+            ),
+            output_widget,
+        )
 
 
 def show_tabel_from_df(exercise_identifier, to_fill_df, correct_df):
-    if not (to_fill_df.index.equals(correct_df.index) and to_fill_df.columns.equals(correct_df.columns) and to_fill_df.shape == correct_df.shape):
+    if not (
+        to_fill_df.index.equals(correct_df.index)
+        and to_fill_df.columns.equals(correct_df.columns)
+        and to_fill_df.shape == correct_df.shape
+    ):
         output.wrong(
-            "Die auszufüllende Tabelle und der musterlösungs Tabelle haben nicht den selben Aufbau, überprüfe nochmal die Spalten und Zeilenbenennung.")
+            "Die auszufüllende Tabelle und der musterlösungs Tabelle haben nicht den selben Aufbau, überprüfe nochmal die Spalten und Zeilenbenennung."
+        )
         return
     table_content, column_widths = dataframe_to_table_widget(to_fill_df, True)
-    show_table("AB5-3m", table_content, column_widths, correct_df, check_func=check_table)
+    show_table(
+        "AB5-3m", table_content, column_widths, correct_df, check_func=check_table
+    )
 
 
 def _store_table_entries(identifier, entries):

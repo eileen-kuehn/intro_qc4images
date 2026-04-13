@@ -22,22 +22,20 @@ def show_correct_text_selection(options):
     for i in range(len(options)):
         unique_identifier = " " * i
         single_button = widgets.RadioButtons(
-            options=[unique_identifier],
-            value=None,
-            layout=widgets.Layout(width="18px")
+            options=[unique_identifier], value=None, layout=widgets.Layout(width="18px")
         )
-        single_button.observe(on_change, names='value')
+        single_button.observe(on_change, names="value")
 
         radio_buttons.append(single_button)
 
     # Build the rows containing the radio button and the math widget
     rows = []
     for i, (text, correct, output_message) in enumerate(options):
-        math_widget = widgets.HTMLMath(text, style=dict(font_size="15px"),
-                                       layout=widgets.Layout(height="40px"))
+        math_widget = widgets.HTMLMath(
+            text, style=dict(font_size="15px"), layout=widgets.Layout(height="40px")
+        )
 
         rows.append(widgets.HBox([radio_buttons[i], math_widget]))
-    
 
     # Create check button
     check_button = widgets.Button(description="Überprüfen")
