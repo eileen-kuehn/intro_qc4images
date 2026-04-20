@@ -17,9 +17,8 @@ from utils import (
 )
 from IPython.core.display_functions import display
 
-
 qubits = widgets.IntSlider(min=0, max=8, value=2, description="Qubit Anzahl")
-cat_path = "./images/Cat.jpg"
+cat_path = "../images/Cat.jpg"
 original_image = load_image(cat_path)
 image = original_image
 pixels_to_transform = []
@@ -142,11 +141,19 @@ Anschließend tauschen wir jeweils jedes dritte Qubits miteinander.
             if len(quantum_circuit.qubits) < len(overall_quantum_circuit.qubits):
                 for i in range(3):
                     base = len(quantum_circuit.qubits) * i
-                    overall_quantum_circuit.compose(quantum_circuit, inplace=True, qubits=range(base, base + len(quantum_circuit.qubits)))
+                    overall_quantum_circuit.compose(
+                        quantum_circuit,
+                        inplace=True,
+                        qubits=range(base, base + len(quantum_circuit.qubits)),
+                    )
                 overall_quantum_circuit.barrier()
                 for i in range(3):
                     base = len(quantum_circuit.qubits) * i
-                    overall_quantum_circuit.compose(quantum_circuit.inverse(), inplace=True, qubits=range(base, base + len(quantum_circuit.qubits)))
+                    overall_quantum_circuit.compose(
+                        quantum_circuit.inverse(),
+                        inplace=True,
+                        qubits=range(base, base + len(quantum_circuit.qubits)),
+                    )
                 overall_quantum_circuit.barrier()
             else:
                 overall_quantum_circuit.compose(quantum_circuit, inplace=True)
@@ -248,7 +255,17 @@ transformed_quantum_cat.layout.width = "315px"
 transformed_quantum_cat.layout.max_width = "315px"
 transformed_quantum_cat.layout.min_width = "315px"
 
-details = widgets.HBox([
-    quantum_cat.children[1], 
-    widgets.Accordion(children=[quantum_cat_description, quantum_cat_circuit, quantum_cat_mapping], titles=["Beschreibung", "Quantenschaltkreis", "Mapping"])])
+details = widgets.HBox(
+    [
+        quantum_cat.children[1],
+        widgets.Accordion(
+            children=[
+                quantum_cat_description,
+                quantum_cat_circuit,
+                quantum_cat_mapping,
+            ],
+            titles=["Beschreibung", "Quantenschaltkreis", "Mapping"],
+        ),
+    ]
+)
 cat_types = widgets.VBox([quantum_cat.children[0], details])
