@@ -1,6 +1,7 @@
 from ipywidgets import widgets, interactive
 from IPython.display import display
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import imshow
 
 from qiskit import QuantumCircuit
 from qiskit import Aer
@@ -42,8 +43,8 @@ def show_bit_prompt():
     )
 
 
-cat_path = "../images/Cat.jpg"
-original_image = load_image(cat_path)
+image_path = "../images/Cat.jpg"
+original_image = load_image(image_path)
 image = original_image
 
 
@@ -78,3 +79,8 @@ def my_qubit_count():
     return widget_state_storage.load_state(
         widget_type="IntSlider", identifier="AB3-1b", default_value={"Wert": 2}
     )["Wert"]
+
+
+def my_pixels_to_transform():
+    height, width = original_image.shape[:2]
+    return [(i, j) for i in range(height) for j in range(width)]
