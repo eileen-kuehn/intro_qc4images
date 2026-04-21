@@ -14,6 +14,7 @@ from utils import (
     convert_rgb_image,
     get_result,
     create_rgb_mapping,
+    create_rgb_qubits,
     load_image,
     reduce_rgb_values,
     print_mapping,
@@ -84,3 +85,15 @@ def my_qubit_count():
 def my_pixels_to_transform():
     height, width = original_image.shape[:2]
     return [(i, j) for i in range(height) for j in range(width)]
+
+
+def prompt_3b():
+    questions.prompt_answer_with_check(
+        exercise_identifier="AB3-3b",
+        input_prompt="Wie hoch ist die Wahrscheinlichkeit, 0 zu messen?",
+        check_func=lambda x: x.strip() == "50"
+        or x.strip() == "50%"
+        or x.strip() == "50 Prozent",
+        success_message="Richtig! Da wir auf dem Äquator sind, ist die Wahrscheinlichkeit, 0 zu messen, 50%.",
+        error_message="Das ist leider nicht korrekt. Überlege, dass der Zustand auf dem Äquator bedeutet, dass das Qubit mit gleichen Teilen in Superposition von 0 und 1 ist. Versuche es noch einmal!",
+    )
