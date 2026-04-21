@@ -93,7 +93,8 @@ def prompt_3b():
         input_prompt="Wie hoch ist die Wahrscheinlichkeit, 0 zu messen?",
         check_func=lambda x: x.strip() == "50"
         or x.strip() == "50%"
-        or x.strip() == "50 Prozent",
+        or x.strip() == "50 Prozent"
+        or x.strip() == "0.5",
         success_message="Richtig! Da wir auf dem Äquator sind, ist die Wahrscheinlichkeit, 0 zu messen, 50%.",
         error_message="Das ist leider nicht korrekt. Überlege, dass der Zustand auf dem Äquator bedeutet, dass das Qubit mit gleichen Teilen in Superposition von 0 und 1 ist. Versuche es noch einmal!",
     )
