@@ -3,7 +3,7 @@ from IPython.display import display
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import imshow
 
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, QuantumRegister
 from qiskit import Aer
 from qiskit.circuit.random import random_circuit
 from qiskit.providers.fake_provider import FakeManilaV2, FakeBoeblingen, FakeMelbourne
