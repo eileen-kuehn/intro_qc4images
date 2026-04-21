@@ -28,7 +28,6 @@ make the quantum image smoother.
 
 def reduce_rgb_values(image, qubits):
     r_value = 2 ** (8 - qubits)
-    max_value = 256 - r_value
 
     image = copy(image)
     height, width, channel = image.shape
@@ -36,13 +35,7 @@ def reduce_rgb_values(image, qubits):
         for w in range(width):
             for c in range(channel):
                 value = image[h, w, c]
-                difference = value % r_value
-                if difference < r_value / 2:
-                    value -= difference
-                else:
-                    value += r_value - difference
-                if value > 255:
-                    value -= r_value
+                value = (value // r_value) * r_value
                 image[h, w, c] = value
 
     return image
