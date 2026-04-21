@@ -2,8 +2,10 @@ import numpy as np
 from template import questions
 from template.widget_state_storage import load_state
 import utils
+from utils import imshow, load_image
 from template import output
 import template.table_widget as table
+from copy import copy
 
 
 def setup_erfolg():
@@ -96,5 +98,5 @@ def prompt_2a():
     questions.prompt_answer(
         "AB2-2a",
         input_prompt="Deine Hypothese",
-        input_description="Deine Hypothese zur Dimension von Farbbildern aus Aufgabe 2b:",
+        input_description="Deine Hypothese zur Dimension von Farbbildern:",
     )
