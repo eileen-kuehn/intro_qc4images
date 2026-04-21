@@ -82,6 +82,10 @@ def my_qubit_count():
     )["Wert"]
 
 
+def my_reduced_image():
+    return reduce_rgb_values(image, my_qubit_count())
+
+
 def my_pixels_to_transform():
     height, width = original_image.shape[:2]
     return [(i, j) for i in range(height) for j in range(width)]
