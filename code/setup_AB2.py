@@ -60,7 +60,7 @@ def check_2c(pixel):
         output.correct("Das ist der richtige Wert für den Rot-Kanal dieses Pixels!")
     elif pixel == 213:
         output.wrong(
-            "Der Wert ist leider falsch. Hast du bedacht, dass Informatiker von 0 zu zählen beginnen?"
+            "Der Wert ist leider falsch. Hast du bedacht, dass wir in der Informatik von 0 zu zählen beginnen?"
         )
     else:
         output.wrong("Das ist nicht der richtige Wert für den Rot-Kanal dieses Pixels!")
