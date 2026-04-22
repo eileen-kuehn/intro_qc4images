@@ -24,13 +24,13 @@ def show_datatype_table():
     def check_table(text_cells):
         correct = True
         outputstring = ""
-        if str.lower(text_cells[1][1]) in ("float", "komma"):
+        if str.lower(text_cells[1][1]) in ("float", "kommazahl", "gleitkommazahl"):
             outputstring += "Der Datentyp für <code>var1</code> ist korrekt."
             output.correct,
         else:
             correct = False
             outputstring += "Der Datentyp für <code>var1</code> ist leider falsch. Überlege, was die Summe aus einer Ganzzahl und einer Kommazahl ergibt."
-        if str.lower(text_cells[2][1]) in ("int", "ganzzahl"):
+        if str.lower(text_cells[2][1]) in ("int", "ganzzahl", "integer"):
             outputstring += "<br/>Der Datentyp für <code>var2</code> ist korrekt."
         else:
             correct = False
