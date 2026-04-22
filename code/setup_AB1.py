@@ -24,7 +24,11 @@ def show_datatype_table():
     def check_table(text_cells):
         correct = True
         outputstring = ""
-        if str.lower(text_cells[1][1]) in ("float", "komma"):
+        if str.lower(text_cells[1][1]) in (
+            "float",
+            "kommazahl",
+            "gleitkommazahl",
+        ):
             outputstring += "Der Datentyp für <code>var1</code> ist korrekt."
             output.correct,
         else:
